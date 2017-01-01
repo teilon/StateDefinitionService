@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'db.dbo.vZones' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vZones">
+          <Key>
+            <PropertyRef Name="ZoneId" />
+            <PropertyRef Name="ZoneTypeId" />
+            <PropertyRef Name="ZoneTypeName" />
+          </Key>
+          <Property Name="ZoneId" Type="int" Nullable="false" />
+          <Property Name="ZoneName" Type="nvarchar" MaxLength="20" />
+          <Property Name="ZoneTypeId" Type="int" Nullable="false" />
+          <Property Name="ZoneTypeName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="x" Type="float" />
+          <Property Name="y" Type="float" />
+          <Property Name="z" Type="float" />
+        </EntityType>
+        <Function Name="spGetDumps" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSaveEndEventForTransporter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="transporterimei" Type="varchar" Mode="In" />
+          <Parameter Name="eventIndex" Type="int" Mode="In" />
+          <Parameter Name="endTime" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spSaveStartEventForLoader" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="transporterimei" Type="varchar" Mode="In" />
+          <Parameter Name="loaderimei" Type="varchar" Mode="In" />
+          <Parameter Name="eventIndex" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSaveStartEventForTransporter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="transporterimei" Type="varchar" Mode="In" />
+          <Parameter Name="eventIndex" Type="int" Mode="In" />
+          <Parameter Name="starttime" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spSaveTotbEventData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="imei" Type="varchar" Mode="In" />
+          <Parameter Name="timestamp" Type="bigint" Mode="In" />
+          <Parameter Name="statusCode" Type="int" Mode="In" />
+          <Parameter Name="latitude" Type="float" Mode="In" />
+          <Parameter Name="longitude" Type="float" Mode="In" />
+          <Parameter Name="altitude" Type="float" Mode="In" />
+          <Parameter Name="heading" Type="float" Mode="In" />
+          <Parameter Name="speedKPH" Type="float" Mode="In" />
+          <Parameter Name="creationTime" Type="bigint" Mode="In" />
+        </Function>
+        <EntityContainer Name="dbModelStoreContainer">
+          <EntitySet Name="vZones" EntityType="Self.vZones" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vZones].[ZoneId] AS [ZoneId], 
+    [vZones].[ZoneName] AS [ZoneName], 
+    [vZones].[ZoneTypeId] AS [ZoneTypeId], 
+    [vZones].[ZoneTypeName] AS [ZoneTypeName], 
+    [vZones].[x] AS [x], 
+    [vZones].[y] AS [y], 
+    [vZones].[z] AS [z]
+    FROM [dbo].[vZones] AS [vZones]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="vZones">
+          <Key>
+            <PropertyRef Name="ZoneId" />
+            <PropertyRef Name="ZoneTypeId" />
+            <PropertyRef Name="ZoneTypeName" />
+          </Key>
+          <Property Name="ZoneId" Type="Int32" Nullable="false" />
+          <Property Name="ZoneName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ZoneTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ZoneTypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="x" Type="Double" />
+          <Property Name="y" Type="Double" />
+          <Property Name="z" Type="Double" />
+        </EntityType>
+        <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="vZones" EntityType="Self.vZones" />
+          <FunctionImport Name="spGetDumps" ReturnType="Collection(dbModel.spGetDumps_Result)" />
+          <FunctionImport Name="spSaveEndEventForTransporter">
+            <Parameter Name="transporterimei" Mode="In" Type="String" />
+            <Parameter Name="eventIndex" Mode="In" Type="Int32" />
+            <Parameter Name="endTime" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="spSaveStartEventForLoader">
+            <Parameter Name="transporterimei" Mode="In" Type="String" />
+            <Parameter Name="loaderimei" Mode="In" Type="String" />
+            <Parameter Name="eventIndex" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spSaveStartEventForTransporter">
+            <Parameter Name="transporterimei" Mode="In" Type="String" />
+            <Parameter Name="eventIndex" Mode="In" Type="Int32" />
+            <Parameter Name="starttime" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="spSaveTotbEventData">
+            <Parameter Name="imei" Mode="In" Type="String" />
+            <Parameter Name="timestamp" Mode="In" Type="Int64" />
+            <Parameter Name="statusCode" Mode="In" Type="Int32" />
+            <Parameter Name="latitude" Mode="In" Type="Double" />
+            <Parameter Name="longitude" Mode="In" Type="Double" />
+            <Parameter Name="altitude" Mode="In" Type="Double" />
+            <Parameter Name="heading" Mode="In" Type="Double" />
+            <Parameter Name="speedKPH" Mode="In" Type="Double" />
+            <Parameter Name="creationTime" Mode="In" Type="Int64" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="spGetDumps_Result">
+          <Property Type="Int32" Name="TransportId" Nullable="true" />
+          <Property Type="String" Name="ParkNumber" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="TransportType" Nullable="true" />
+          <Property Type="String" Name="TransportImei" Nullable="true" MaxLength="30" />
+          <Property Type="Double" Name="LastX" Nullable="true" />
+          <Property Type="Double" Name="LastY" Nullable="true" />
+          <Property Type="Boolean" Name="IsLoader" Nullable="true" />
+          <Property Type="Boolean" Name="IsStorageLoader" Nullable="true" />
+          <Property Type="Double" Name="LoadRadius" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="dbEntities">
+          <EntitySetMapping Name="vZones">
+            <EntityTypeMapping TypeName="dbModel.vZones">
+              <MappingFragment StoreEntitySet="vZones">
+                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
+                <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
+                <ScalarProperty Name="ZoneTypeId" ColumnName="ZoneTypeId" />
+                <ScalarProperty Name="ZoneTypeName" ColumnName="ZoneTypeName" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="z" ColumnName="z" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spGetDumps" FunctionName="dbModel.Store.spGetDumps">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbModel.spGetDumps_Result">
+                <ScalarProperty Name="TransportId" ColumnName="TransportId" />
+                <ScalarProperty Name="ParkNumber" ColumnName="ParkNumber" />
+                <ScalarProperty Name="TransportType" ColumnName="TransportType" />
+                <ScalarProperty Name="TransportImei" ColumnName="TransportImei" />
+                <ScalarProperty Name="LastX" ColumnName="LastX" />
+                <ScalarProperty Name="LastY" ColumnName="LastY" />
+                <ScalarProperty Name="IsLoader" ColumnName="IsLoader" />
+                <ScalarProperty Name="IsStorageLoader" ColumnName="IsStorageLoader" />
+                <ScalarProperty Name="LoadRadius" ColumnName="LoadRadius" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spSaveEndEventForTransporter" FunctionName="dbModel.Store.spSaveEndEventForTransporter" />
+          <FunctionImportMapping FunctionImportName="spSaveStartEventForLoader" FunctionName="dbModel.Store.spSaveStartEventForLoader" />
+          <FunctionImportMapping FunctionImportName="spSaveStartEventForTransporter" FunctionName="dbModel.Store.spSaveStartEventForTransporter" />
+          <FunctionImportMapping FunctionImportName="spSaveTotbEventData" FunctionName="dbModel.Store.spSaveTotbEventData" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
